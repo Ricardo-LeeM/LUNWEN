@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1111</width>
+    <height>771</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="windowTitle">
+   <string>夕阳红人力资源管理系统</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>333.jpg</normaloff>333.jpg</iconset>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QWidget {
+    font-family: &quot;Microsoft YaHei&quot;, &quot;Segoe UI&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif;
+    font-size: 10pt;
+    color: #2c3e50;
+    background-color: #f4f6f8;
+}</string>
+  </property>
+  <property name="toolButtonStyle">
+   <enum>Qt::ToolButtonStyle::ToolButtonTextBesideIcon</enum>
+  </property>
+  <property name="tabShape">
+   <enum>QTabWidget::TabShape::Rounded</enum>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QStackedWidget" name="stackedWidget">
+    <property name="geometry">
+     <rect>
+      <x>250</x>
+      <y>20</y>
+      <width>831</width>
+      <height>731</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Shape::NoFrame</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Shadow::Sunken</enum>
+    </property>
+    <widget class="QWidget" name="page_10">
+     <widget class="QLabel" name="label">
+      <property name="geometry">
+       <rect>
+        <x>280</x>
+        <y>310</y>
+        <width>261</width>
+        <height>91</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">.black-large-label {
+    background-color: white;       /* 白色背景 */
+    color: black;                  /* 黑色字体 */
+    font-size: 20px;               /* 大字体（可调整） */
+    font-weight: bold;             /* 加粗 */
+    padding: 10px 15px;            /* 内边距 */
+    border-radius: 5px;            /* 圆角 */
+    display: inline-block;         /* 行内块级元素 */
+    border: 2px solid #000;        /* 黑色边框（可选） */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);  /* 轻微阴影（可选） */
+    margin: 5px;                   /* 外边距 */
+}</string>
+      </property>
+      <property name="text">
+       <string>XXXXX公司人力资源管理系统</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="page_11"/>
+   </widget>
+   <widget class="QFrame" name="frame">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>231</width>
+      <height>751</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QFrame { /* Example: if you named your sidebar QFrame &quot;leftSidebarFrame&quot; */
+    background-color: #2C3E50; /* A deep, professional blue-gray */
+    border-right: 1px solid #34495E;
+}
+
+/* ToolButton in Sidebar (Navigation) */
+QFrame QToolButton {
+    background-color: transparent;
+    color: #ECF0F1; /* Light text color for contrast against dark sidebar */
+    border: none;
+    padding: 12px 15px; /* Ample padding */
+    text-align: left;
+    font-size: 10pt;
+    font-weight: bold;
+    border-radius: 4px; /* Slightly rounded corners */
+    margin: 5px 10px;
+}
+
+QFrame QToolButton:hover {
+    background-color: #34495E; /* Darker shade on hover */
+    color: #FFFFFF;
+}
+
+QFrame QToolButton:checked,
+QFrame QToolButton:pressed {
+    background-color: #1ABC9C; /* A pleasant teal accent for selected/pressed */
+    color: #FFFFFF;
+}
+
+/* ComboBox in Sidebar (e.g., &quot;个人中心&quot;) */
+QFrame QComboBox {
+    background-color: #34495E;
+    color: #ECF0F1;
+    border: 1px solid #4A6178;
+    padding: 8px 10px;
+    border-radius: 4px;
+    margin: 10px;
+    font-weight: bold;
+}
+
+QFrameFrame QComboBox::drop-down {
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    width: 20px;
+    border-left-width: 1px;
+    border-left-color: #4A6178;
+    border-left-style: solid;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+QFrameQComboBox::down-arrow {
+    image: url(:/qt-project.org/styles/commonstyle/images/downarrrow-16.png); /* Default Qt arrow, consider a custom one */
+    width: 12px;
+    height: 12px;
+}
+QFrame QComboBox::down-arrow:on {
+    image: url(:/qt-project.org/styles/commonstyle/images/uparrrow-16.png);
+}
+
+QFrameQComboBox QAbstractItemView { /* Dropdown list style */
+    background-color: #34495E;
+    color: #ECF0F1;
+    border: 1px solid #4A6178;
+    selection-background-color: #1ABC9C;
+    padding: 5px;
+}
+</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Shape::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Shadow::Raised</enum>
+    </property>
+    <widget class="QToolButton" name="tbtnJobRequirement">
+     <property name="geometry">
+      <rect>
+       <x>-10</x>
+       <y>170</y>
+       <width>251</width>
+       <height>61</height>
+      </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>171</width>
+       <height>31</height>
+      </size>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <property name="text">
+      <string>招聘管理中心</string>
+     </property>
+    </widget>
+    <widget class="QToolButton" name="tbtnDeclarationManagement">
+     <property name="geometry">
+      <rect>
+       <x>-10</x>
+       <y>240</y>
+       <width>251</width>
+       <height>61</height>
+      </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>171</width>
+       <height>31</height>
+      </size>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <property name="text">
+      <string>申报管理</string>
+     </property>
+    </widget>
+    <widget class="QToolButton" name="tbtnSalaryManagement">
+     <property name="geometry">
+      <rect>
+       <x>-10</x>
+       <y>310</y>
+       <width>251</width>
+       <height>71</height>
+      </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>171</width>
+       <height>31</height>
+      </size>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <property name="text">
+      <string>薪资管理</string>
+     </property>
+    </widget>
+    <widget class="QToolButton" name="tbtnPersonCenter_2">
+     <property name="geometry">
+      <rect>
+       <x>-10</x>
+       <y>100</y>
+       <width>251</width>
+       <height>61</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <property name="text">
+      <string>个人中心</string>
+     </property>
+    </widget>
+    <widget class="QToolButton" name="tbtn">
+     <property name="geometry">
+      <rect>
+       <x>-10</x>
+       <y>390</y>
+       <width>251</width>
+       <height>71</height>
+      </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>171</width>
+       <height>31</height>
+      </size>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <property name="text">
+      <string>员工管理</string>
+     </property>
+    </widget>
+   </widget>
+  </widget>
+  <action name="actionBasicInfo">
+   <property name="text">
+    <string>个人基本信息</string>
+   </property>
+   <property name="toolTip">
+    <string>个人基本信息</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::MenuRole::NoRole</enum>
+   </property>
+  </action>
+  <action name="actionApplication">
+   <property name="text">
+    <string>个人申请</string>
+   </property>
+   <property name="toolTip">
+    <string>个人申请</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::MenuRole::NoRole</enum>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

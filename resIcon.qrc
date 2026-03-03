@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>C:/Users/雨/Pictures/xuexi/project/u=2220351333,119355567&amp;fm=253&amp;fmt=auto&amp;app=138&amp;f=JPEG.webp</file>
+    </qresource>
+    <qresource prefix="/new/prefix1"/>
+</RCC>

@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>DeclarationManagement</class>
+ <widget class="QWidget" name="DeclarationManagement">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>822</width>
+    <height>751</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>审批中心</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QWidget {
+    font-family: &quot;Microsoft YaHei&quot;, &quot;Segoe UI&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif;
+    font-size: 10pt;
+    color: #2c3e50;
+    background-color: #f4f6f8;
+}</string>
+  </property>
+  <widget class="QTabWidget" name="tabWidget">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>326</y>
+     <width>801</width>
+     <height>411</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QTabWidget::pane {
+    border: 1px solid #dcdde1;
+    border-top: none; /* 顶部边框由TabBar处理 */
+    background-color: white;
+}
+
+/* Tab 栏 */
+QTabBar::tab {
+    background-color: #e9ecef;
+    color: #8c8c8c;
+    border: 1px solid #dcdde1;
+    border-bottom: none; /* 底部边框在选中时处理 */
+    padding: 8px 25px;
+    margin-right: 2px;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+}
+
+/* Tab 鼠标悬浮 */
+QTabBar::tab:hover {
+    background-color: #f0f2f5;
+    color: #3498db;
+}
+
+/* Tab 选中状态 */
+QTabBar::tab:selected {
+    background-color: white; /* 与Tab页内容区融为一体 */
+    color: #3498db;
+    font-weight: bold;
+    border-color: #dcdde1;
+    border-bottom-color: white; /* 关键：隐藏底部边框，实现连接效果 */
+}</string>
+   </property>
+   <property name="currentIndex">
+    <number>0</number>
+   </property>
+   <widget class="QWidget" name="tab">
+    <attribute name="title">
+     <string>审批请求</string>
+    </attribute>
+    <layout class="QGridLayout" name="gridLayout_3">
+     <item row="0" column="0">
+      <widget class="QTableWidget" name="tableWidget">
+       <property name="styleSheet">
+        <string notr="true">QTableWidget {
+    background-color: white;
+    border: 1px solid #e0e0e0;
+    color: #333333;
+    gridline-color: #f0f0f0;
+    alternate-background-color: #f9f9f9;
+}
+
+/* 表头样式 */
+QTableWidget QHeaderView::section {
+    background-color: #16a085; /* 专业、沉稳的翠绿色 */
+    color: white;
+    padding: 8px;
+    border: none;
+    border-right: 1px solid #1abc9c; /* 亮一点的绿色作为分隔 */
+    font-weight: bold;
+}
+
+/* 最后一个表头单元格无右边框 */
+QTableWidget QHeaderView::section:last {
+    border-right: none;
+}
+
+/* 单元格样式 */
+QTableWidget::item {
+    border: none;
+    padding: 1px;
+}
+
+/* 选中单元格样式 */
+QTableWidget::item:selected {
+    background-color: #d4efdf; /* 非常浅的绿色 */
+    color: #135c4c; /* 深绿色文字 */
+}</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QPushButton" name="btnUpdateTable">
+       <property name="text">
+        <string>更新表格</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="tab_2">
+    <attribute name="title">
+     <string>已批准的请求</string>
+    </attribute>
+    <layout class="QGridLayout" name="gridLayout_4">
+     <item row="0" column="0">
+      <widget class="QTableWidget" name="tableWidgetPass">
+       <property name="styleSheet">
+        <string notr="true">QTableWidget {
+    background-color: white;
+    border: 1px solid #e0e0e0;
+    color: #333333;
+    gridline-color: #f0f0f0;
+    alternate-background-color: #f9f9f9;
+}
+
+/* 表头样式 */
+QTableWidget QHeaderView::section {
+    background-color: #16a085; /* 专业、沉稳的翠绿色 */
+    color: white;
+    padding: 8px;
+    border: none;
+    border-right: 1px solid #1abc9c; /* 亮一点的绿色作为分隔 */
+    font-weight: bold;
+}
+
+/* 最后一个表头单元格无右边框 */
+QTableWidget QHeaderView::section:last {
+    border-right: none;
+}
+
+/* 单元格样式 */
+QTableWidget::item {
+    border: none;
+    padding: 1px;
+}
+
+/* 选中单元格样式 */
+QTableWidget::item:selected {
+    background-color: #d4efdf; /* 非常浅的绿色 */
+    color: #135c4c; /* 深绿色文字 */
+}
+
+/* ============================ 新增: 表格专属滚动条 ============================ */
+
+/* 垂直滚动条 */
+QTableWidget QScrollBar:vertical {
+    border: none;
+    background: #f9f9f9; /* 与隔行色一致 */
+    width: 9px;
+    margin: 0px 0 0px 0;
+}
+
+QTableWidget QScrollBar::handle:vertical {
+    background-color: #16a085; /* 与表头颜色一致 */
+    min-height: 25px;
+    border-radius: 4px;
+}
+
+QTableWidget QScrollBar::handle:vertical:hover {
+    background-color: #1abc9c; /* 悬浮时变亮 */
+}
+
+QTableWidget QScrollBar::add-line:vertical, QTableWidget QScrollBar::sub-line:vertical {
+    height: 0px; /* 隐藏箭头 */
+}
+
+QTableWidget QScrollBar::add-page:vertical, QTableWidget QScrollBar::sub-page:vertical {
+    background: none;
+}
+
+
+/* 水平滚动条 */
+QTableWidget QScrollBar:horizontal {
+    border: none;
+    background: #f9f9f9;
+    height: 9px;
+    margin: 0 0px 0 0px;
+}
+
+QTableWidget QScrollBar::handle:horizontal {
+    background-color: #16a085;
+    min-width: 25px;
+    border-radius: 4px;
+}
+
+QTableWidget QScrollBar::handle:horizontal:hover {
+    background-color: #1abc9c;
+}
+
+QTableWidget QScrollBar::add-line:horizontal, QTableWidget QScrollBar::sub-line:horizontal {
+    width: 0px; /* 隐藏箭头 */
+}
+
+QTableWidget QScrollBar::add-page:horizontal, QTableWidget QScrollBar::sub-page:horizontal {
+    background: none;
+}
+</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="tab_3">
+    <attribute name="title">
+     <string>已驳回的审批</string>
+    </attribute>
+    <layout class="QGridLayout" name="gridLayout_2">
+     <item row="0" column="0">
+      <widget class="QTableWidget" name="tableWidgetRejected">
+       <property name="styleSheet">
+        <string notr="true">QTableWidget {
+    background-color: white;
+    border: 1px solid #e0e0e0;
+    color: #333333;
+    gridline-color: #f0f0f0;
+    alternate-background-color: #f9f9f9;
+}
+
+/* 表头样式 */
+QTableWidget QHeaderView::section {
+    background-color: #16a085; /* 专业、沉稳的翠绿色 */
+    color: white;
+    padding: 8px;
+    border: none;
+    border-right: 1px solid #1abc9c; /* 亮一点的绿色作为分隔 */
+    font-weight: bold;
+}
+
+/* 最后一个表头单元格无右边框 */
+QTableWidget QHeaderView::section:last {
+    border-right: none;
+}
+
+/* 单元格样式 */
+QTableWidget::item {
+    border: none;
+    padding: 1px;
+}
+
+/* 选中单元格样式 */
+QTableWidget::item:selected {
+    background-color: #d4efdf; /* 非常浅的绿色 */
+    color: #135c4c; /* 深绿色文字 */
+}</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QGroupBox" name="groupBox">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>801</width>
+     <height>311</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/* GroupBox Styling */
+QGroupBox {
+    background-color: #FBFCFC; /* Very light background for distinction */
+    border: 1px solid #D5DBDB;
+    border-radius: 6px;
+    padding: 10px;
+    margin-top: 20px; /* Space for the title */
+    font-weight: bold;
+}
+
+QGroupBox::title {
+    subcontrol-origin: margin;
+    subcontrol-position: top left;
+    padding: 0 8px 0 8px;
+    margin-left: 10px;
+    background-color: #FBFCFC; /* Match groupbox background */
+    color: #2980B9; /* Professional blue for titles */
+    font-size: 11pt;
+}</string>
+   </property>
+   <property name="title">
+    <string>查找</string>
+   </property>
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
+     <widget class="QLabel" name="label">
+      <property name="text">
+       <string>搜索历史记录：</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QLineEdit" name="lineEditSearch"/>
+    </item>
+    <item row="0" column="2">
+     <widget class="QComboBox" name="comboBoxDeclarationType">
+      <item>
+       <property name="text">
+        <string>无</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>财务申报</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>立项申报</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>休假申报</string>
+       </property>
+      </item>
+     </widget>
+    </item>
+    <item row="0" column="3">
+     <widget class="QPushButton" name="btnSearch">
+      <property name="text">
+       <string>搜索</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0" colspan="4">
+     <widget class="QTableWidget" name="tableWidgetSearch">
+      <property name="styleSheet">
+       <string notr="true">QTableWidget {
+    background-color: #2c3e50; /* 深蓝灰色背景 */
+    border: 1px solid #34495e;
+    color: #ecf0f1; /* 亮灰色文字 */
+    gridline-color: #34495e; /* 网格线颜色 */
+    alternate-background-color: #34495e; /* 隔行变色 */
+}
+
+/* 表头样式 */
+QTableWidget QHeaderView::section {
+    background-color: #34495e;
+    color: #ecf0f1;
+    padding: 8px;
+    border: none;
+    border-bottom: 2px solid #3498db; /* 蓝色底边框作为点缀 */
+    font-weight: bold;
+    text-transform: uppercase; /* 字母大写，更显专业 */
+}
+
+/* 单元格样式 */
+QTableWidget::item {
+    border-bottom: 1px solid #34495e;
+    padding: 5px;
+}
+
+/* 选中单元格样式 */
+QTableWidget::item:selected {
+    background-color: #3498db; /* 选中时使用主题蓝色 */
+    color: white;
+}
+
+/* 表格专属滚动条 */
+QTableWidget QScrollBar:vertical {
+    border: none;
+    background: transparent;
+    width: 10px;
+    margin: 12px 0 12px 0;
+}
+
+QTableWidget QScrollBar::handle:vertical {
+    background-color: #3498db;
+    min-height: 25px;
+    border-radius: 5px;
+}
+
+QTableWidget QScrollBar::handle:vertical:hover {
+    background-color: #5dade2;
+}
+
+QTableWidget QScrollBar::add-line:vertical, QTableWidget#darkKnightTable QScrollBar::sub-line:vertical {
+    height: 0px;
+}
+
+QTableWidget QScrollBar::add-page:vertical, QTableWidget#darkKnightTable QScrollBar::sub-page:vertical {
+    background: none;
+}
+
+QTableWidget QScrollBar:horizontal {
+    border: none;
+    background: transparent;
+    height: 10px;
+    margin: 0 12px 0 12px;
+}
+
+QTableWidget QScrollBar::handle:horizontal {
+    background-color: #3498db;
+    min-width: 25px;
+    border-radius: 5px;
+}
+
+QTableWidget QScrollBar::handle:horizontal:hover {
+    background-color: #5dade2;
+}
+
+QTableWidget QScrollBar::add-line:horizontal, QTableWidget#darkKnightTable QScrollBar::sub-line:horizontal {
+    width: 0px;
+}
+
+QTableWidget QScrollBar::add-page:horizontal, QTableWidget#darkKnightTable QScrollBar::sub-page:horizontal {
+    background: none;
+}
+</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

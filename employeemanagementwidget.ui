@@ -1,0 +1,573 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>EmployeeManagementWidget</class>
+ <widget class="QWidget" name="EmployeeManagementWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>825</width>
+    <height>664</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>员工管理</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">/* 筛选区域的容器 (GroupBox) */
+QGroupBox#filterGroupBox {
+    border: 1px solid #dcdde1;
+    border-radius: 5px;
+    margin-top: 10px; /* 为标题留出空间 */
+    background-color: white; /* 设置白色背景，与主背景区分 */
+}
+
+/* GroupBox 的标题样式 */
+QGroupBox#filterGroupBox::title {
+    subcontrol-origin: margin;
+    subcontrol-position: top left;
+    padding: 0 5px 5px 5px;
+    color: #34495e;
+    font-weight: bold;
+}
+
+/* 筛选区域内的标签 */
+QLabel#label_2, QLabel#label_3, QLabel#label_4 {
+    font-weight: normal;
+    padding: 5px;
+}
+
+/* ============================ 筛选控件 (输入框、下拉框) ============================ */
+QLineEdit#nameFilterLineEdit,
+QComboBox#deptFilterComboBox,
+QComboBox#assigneeFilterComboBox,
+QComboBox#taskTypeFilterComboBox,
+QComboBox#taskStatusFilterComboBox {
+    border: 1px solid #dcdde1;
+    border-radius: 4px;
+    padding: 6px;
+    background-color: #f8f9f9; /* 浅灰色背景，与白色容器区分 */
+}
+
+QLineEdit#nameFilterLineEdit:focus,
+QComboBox#deptFilterComboBox:focus,
+QComboBox#assigneeFilterComboBox:focus,
+QComboBox#taskTypeFilterComboBox:focus,
+QComboBox#taskStatusFilterComboBox:focus {
+    border: 1px solid #3498db;
+}
+
+/* ============================ 筛选与操作按钮 ============================ */
+
+/* 查询/重置按钮 (次要按钮) */
+QPushButton#queryEmployeeButton,
+QPushButton#resetEmployeeButton,
+QPushButton#queryTaskButton,
+QPushButton#resetTaskButton {
+    background-color: #95a5a6;
+    color: white;
+    font-weight: bold;
+}
+QPushButton#queryEmployeeButton:hover,
+QPushButton#resetEmployeeButton:hover,
+QPushButton#queryTaskButton:hover,
+QPushButton#resetTaskButton:hover {
+    background-color: #aeb6bf;
+}
+QPushButton#queryEmployeeButton:pressed,
+QPushButton#resetEmployeeButton:pressed,
+QPushButton#queryTaskButton:pressed,
+QPushButton#resetTaskButton:pressed {
+    background-color: #7f8c8d;
+}
+
+
+/* 主要操作按钮 (蓝色主题) */
+QPushButton#addEmployeeButton,
+QPushButton#editEmployeeButton,
+QPushButton#assignTaskButton,
+QPushButton#editTaskButton {
+    background-color: #3498db;
+    color: white;
+    font-weight: bold;
+}
+QPushButton#addEmployeeButton:hover,
+QPushButton#editEmployeeButton:hover,
+QPushButton#assignTaskButton:hover,
+QPushButton#editTaskButton:hover {
+    background-color: #5dade2;
+}
+QPushButton#addEmployeeButton:pressed,
+QPushButton#editEmployeeButton:pressed,
+QPushButton#assignTaskButton:pressed,
+QPushButton#editTaskButton:pressed {
+    background-color: #2980b9;
+}
+
+
+/* 删除按钮 (红色警告) */
+QPushButton#deleteEmployeeButton,
+QPushButton#deleteTaskButton {
+    background-color: #e74c3c;
+    color: white;
+    font-weight: bold;
+}
+QPushButton#deleteEmployeeButton:hover,
+QPushButton#deleteTaskButton:hover {
+    background-color: #f1948a;
+}
+QPushButton#deleteEmployeeButton:pressed,
+QPushButton#deleteTaskButton:pressed {
+    background-color: #c0392b;
+}
+
+/* ============================ 数据表格 (员工 &amp; 任务) ============================ */
+
+/* 应用“翡翠之准”绿色主题 */
+QTableView#employeeTableView,
+QTableView#taskTableView {
+    background-color: white;
+    border: 1px solid #e0e0e0;
+    color: #333333;
+    gridline-color: #f0f0f0;
+    alternate-background-color: #f9f9f9;
+}
+
+/* 表头样式 */
+QTableView#employeeTableView QHeaderView::section,
+QTableView#taskTableView QHeaderView::section {
+    background-color: #16a085; /* 专业、沉稳的翠绿色 */
+    color: white;
+    padding: 8px;
+    border: none;
+    border-right: 1px solid #1abc9c; /* 亮一点的绿色作为分隔 */
+    font-weight: bold;
+}
+QTableView#employeeTableView QHeaderView::section:last,
+QTableView#taskTableView QHeaderView::section:last {
+    border-right: none;
+}
+
+
+/* 单元格样式 */
+QTableView#employeeTableView::item,
+QTableView#taskTableView::item {
+    border: none;
+    padding: 5px;
+}
+
+/* 选中单元格样式 */
+QTableView#employeeTableView::item:selected,
+QTableView#taskTableView::item:selected {
+    background-color: #d4efdf; /* 非常浅的绿色 */
+    color: #135c4c; /* 深绿色文字 */
+}
+
+/* 表格专属滚动条 */
+QTableView#employeeTableView QScrollBar:vertical,
+QTableView#taskTableView QScrollBar:vertical {
+    border: none;
+    background: #f9f9f9; /* 与隔行色一致 */
+    width: 9px;
+    margin: 0px 0 0px 0;
+}
+
+QTableView#employeeTableView QScrollBar::handle:vertical,
+QTableView#taskTableView QScrollBar::handle:vertical {
+    background-color: #16a085; /* 与表头颜色一致 */
+    min-height: 25px;
+    border-radius: 4px;
+}
+
+QTableView#employeeTableView QScrollBar::handle:vertical:hover,
+QTableView#taskTableView QScrollBar::handle:vertical:hover {
+    background-color: #1abc9c; /* 悬浮时变亮 */
+}
+
+QTableView#employeeTableView QScrollBar::horizontal,
+QTableView#taskTableView QScrollBar::horizontal {
+    border: none;
+    background: #f9f9f9;
+    height: 9px;
+    margin: 0 0px 0 0px;
+}
+
+QTableView#employeeTableView QScrollBar::handle:horizontal,
+QTableView#taskTableView QScrollBar::handle:horizontal {
+    background-color: #16a085;
+    min-width: 25px;
+    border-radius: 4px;
+}
+
+QTableView#employeeTableView QScrollBar::handle:horizontal:hover,
+QTableView#taskTableView QScrollBar::handle:horizontal:hover {
+    background-color: #1abc9c;
+}
+
+/* 隐藏滚动条箭头 */
+QTableView#employeeTableView QScrollBar::add-line, QTableView#employeeTableView QScrollBar::sub-line,
+QTableView#taskTableView QScrollBar::add-line, QTableView#taskTableView QScrollBar::sub-line {
+    border: none;
+    background: none;
+    width: 0;
+    height: 0;
+}
+
+/* 滚动条空白区域 */
+QTableView#employeeTableView QScrollBar::add-page, QTableView#employeeTableView QScrollBar::sub-page,
+QTableView#taskTableView QScrollBar::add-page, QTableView#taskTableView QScrollBar::sub-page {
+    background: none;
+}</string>
+  </property>
+  <widget class="QTabWidget" name="tabWidget">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>20</y>
+     <width>801</width>
+     <height>631</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QTabWidget::pane {
+    border: 1px solid #dcdde1;
+    border-top: none; /* 顶部边框由TabBar处理 */
+    background-color: white;
+}
+
+/* Tab栏本身 */
+QTabWidget::tab-bar {
+    /* 无需特殊样式 */
+}
+
+/* 单个Tab */
+QTabWidget QTabBar::tab {
+    background-color: #e9ecef;
+    color: #8c8c8c;
+    border: 1px solid #dcdde1;
+    border-bottom: none;
+    padding: 8px 18px;
+    min-width: 100px;
+    margin-right: 2px;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+}
+
+/* 鼠标悬浮在Tab上 */
+QTabWidget QTabBar::tab:hover {
+    background-color: #f5f7fa;
+    color: #3498db;
+}
+
+/* 选中的Tab */
+QTabWidget QTabBar::tab:selected {
+    background-color: white; /* 与内容区颜色一致，实现融合效果 */
+    color: #3498db;
+    font-weight: bold;
+    border-bottom-color: white; /* 隐藏底部边框以实现连接 */
+}</string>
+   </property>
+   <property name="currentIndex">
+    <number>0</number>
+   </property>
+   <widget class="QWidget" name="tab">
+    <attribute name="title">
+     <string>员工列表</string>
+    </attribute>
+    <widget class="QTableView" name="employeeTableView">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>140</y>
+       <width>761</width>
+       <height>321</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QGroupBox" name="filterGroupBox">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>40</y>
+       <width>471</width>
+       <height>71</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string>筛选与查询</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="0" column="0">
+       <widget class="QLabel" name="label">
+        <property name="text">
+         <string>姓名</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLineEdit" name="nameFilterLineEdit"/>
+      </item>
+      <item row="0" column="2">
+       <widget class="QComboBox" name="deptFilterComboBox"/>
+      </item>
+      <item row="0" column="3">
+       <widget class="QPushButton" name="queryEmployeeButton">
+        <property name="text">
+         <string>查询</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="4">
+       <widget class="QPushButton" name="resetEmployeeButton">
+        <property name="text">
+         <string>重置</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+    <widget class="Line" name="line">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>120</y>
+       <width>771</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Orientation::Horizontal</enum>
+     </property>
+    </widget>
+    <widget class="Line" name="line_3">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>490</y>
+       <width>771</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Orientation::Horizontal</enum>
+     </property>
+    </widget>
+    <widget class="QWidget" name="layoutWidget">
+     <property name="geometry">
+      <rect>
+       <x>490</x>
+       <y>530</y>
+       <width>295</width>
+       <height>30</height>
+      </rect>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QPushButton" name="addEmployeeButton">
+        <property name="text">
+         <string>添加员工</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="editEmployeeButton">
+        <property name="text">
+         <string>修改员工</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="deleteEmployeeButton">
+        <property name="text">
+         <string>删除员工</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="tab_3">
+    <attribute name="title">
+     <string>任务管理</string>
+    </attribute>
+    <widget class="QGroupBox" name="taskFilterGroupBox">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>30</y>
+       <width>201</width>
+       <height>421</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string>任务筛选</string>
+     </property>
+     <widget class="QPushButton" name="queryTaskButton">
+      <property name="geometry">
+       <rect>
+        <x>90</x>
+        <y>170</y>
+        <width>93</width>
+        <height>28</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>查询</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="resetTaskButton">
+      <property name="geometry">
+       <rect>
+        <x>90</x>
+        <y>210</y>
+        <width>93</width>
+        <height>28</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>重置</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="assignTaskButton">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>260</y>
+        <width>141</width>
+        <height>28</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>分派常规任务</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="deleteTaskButton">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>320</y>
+        <width>141</width>
+        <height>28</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>删除任务</string>
+      </property>
+     </widget>
+     <widget class="Line" name="line_2">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>240</y>
+        <width>171</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Orientation::Horizontal</enum>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="editTaskButton">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>380</y>
+        <width>141</width>
+        <height>28</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>修改/查看详情</string>
+      </property>
+     </widget>
+     <widget class="QWidget" name="layoutWidget">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>40</y>
+        <width>162</width>
+        <height>127</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <item>
+          <widget class="QLabel" name="label_2">
+           <property name="text">
+            <string>执行人</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="assigneeFilterComboBox"/>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_3">
+         <item>
+          <widget class="QLabel" name="label_4">
+           <property name="text">
+            <string>任务类</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="taskTypeFilterComboBox"/>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_4">
+         <item>
+          <widget class="QLabel" name="label_3">
+           <property name="text">
+            <string>状   态</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="taskStatusFilterComboBox"/>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+     <zorder>assignTaskButton</zorder>
+     <zorder>queryTaskButton</zorder>
+     <zorder>resetTaskButton</zorder>
+     <zorder>deleteTaskButton</zorder>
+     <zorder>line_2</zorder>
+     <zorder>editTaskButton</zorder>
+     <zorder>layoutWidget</zorder>
+    </widget>
+    <widget class="QTableView" name="taskTableView">
+     <property name="geometry">
+      <rect>
+       <x>230</x>
+       <y>40</y>
+       <width>561</width>
+       <height>381</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="Line" name="line_4">
+     <property name="geometry">
+      <rect>
+       <x>210</x>
+       <y>30</y>
+       <width>20</width>
+       <height>421</height>
+      </rect>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Orientation::Vertical</enum>
+     </property>
+    </widget>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

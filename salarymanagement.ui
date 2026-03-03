@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>SalaryManagement</class>
+ <widget class="QMainWindow" name="SalaryManagement">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QLabel" name="label">
+        <property name="text">
+         <string>薪资周期：</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QComboBox" name="periodComboBox">
+        <property name="styleSheet">
+         <string notr="true">QComboBox#periodComboBox {
+    min-width: 120px; /* 保证宽度 */
+    font-weight: bold;
+    color: #34495e;
+}</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="loadDataButton">
+        <property name="styleSheet">
+         <string notr="true">QPushButton#loadDataButton {
+    min-width: 100px;
+    background-color: #95a5a6; /* 灰色 */
+    font-weight: bold;
+}
+QPushButton#loadDataButton:hover {
+    background-color: #aeb6bf;
+}
+QPushButton#loadDataButton:pressed {
+    background-color: #7f8c8d;
+}</string>
+        </property>
+        <property name="text">
+         <string>加载/刷新</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="1" column="0">
+     <widget class="QTableView" name="salaryTableView">
+      <property name="styleSheet">
+       <string notr="true">QTableView#salaryTableView QHeaderView::section {
+    background-color: #34495e; /* 深灰蓝色，更显沉稳 */
+    color: white;
+    padding: 8px 5px; /* 调整内边距 */
+    border: none;
+    border-right: 1px solid #4a627a; /* 稍亮的分割线 */
+    font-weight: bold;
+}
+
+QTableView#salaryTableView QHeaderView::section:last {
+    border-right: none;
+}
+
+/* salaryTableView 专属滚动条样式 */
+QTableView#salaryTableView QScrollBar:vertical {
+    border: none;
+    background: #f8f9f9; /* 滚动条背景色，与表格隔行色类似 */
+    width: 8px;
+    margin: 0px 0 0px 0;
+}
+QTableView#salaryTableView QScrollBar::handle:vertical {
+    background: #bdc3c7; /* 滑块颜色 */
+    min-height: 20px;
+    border-radius: 4px;
+}
+QTableView#salaryTableView QScrollBar::handle:vertical:hover {
+    background: #aab1b7; /* 悬浮时颜色 */
+}
+QTableView#salaryTableView QScrollBar::add-line:vertical, QTableView#salaryTableView QScrollBar::sub-line:vertical {
+    height: 0px;
+}
+QTableView#salaryTableView QScrollBar::add-page:vertical, QTableView#salaryTableView QScrollBar::sub-page:vertical {
+    background: none;
+}
+
+QTableView#salaryTableView QScrollBar:horizontal {
+    border: none;
+    background: #f8f9f9;
+    height: 8px;
+    margin: 0 0px 0 0px;
+}
+QTableView#salaryTableView QScrollBar::handle:horizontal {
+    background: #bdc3c7;
+    min-width: 20px;
+    border-radius: 4px;
+}
+QTableView#salaryTableView QScrollBar::handle:horizontal:hover {
+    background: #aab1b7;
+}
+QTableView#salaryTableView QScrollBar::add-line:horizontal, QTableView#salaryTableView QScrollBar::sub-line:horizontal {
+    width: 0px;
+}
+QTableView#salaryTableView QScrollBar::add-page:horizontal, QTableView#salaryTableView QScrollBar::sub-page:horizontal {
+    background: none;
+}</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <widget class="QPushButton" name="addButton">
+        <property name="styleSheet">
+         <string notr="true">QPushButton#addButton {
+    background-color: #2ecc71; /* 绿色，表示“新增” */
+}
+QPushButton#addButton:hover {
+    background-color: #58d68d;
+}
+QPushButton#addButton:pressed {
+    background-color: #28b463;
+}</string>
+        </property>
+        <property name="text">
+         <string>新增记录</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="deleteButton">
+        <property name="styleSheet">
+         <string notr="true">QPushButton#deleteButton {
+    background-color: #e74c3c; /* 红色，表示“删除” */
+}
+QPushButton#deleteButton:hover {
+    background-color: #f1948a;
+}
+QPushButton#deleteButton:pressed {
+    background-color: #c0392b;
+}</string>
+        </property>
+        <property name="text">
+         <string>删除选中行</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="calculateButton">
+        <property name="styleSheet">
+         <string notr="true">QPushButton#calculateButton {
+    background-color: #3498db; /* 主题蓝 */
+    font-weight: bold;
+}
+QPushButton#calculateButton:hover {
+    background-color: #5dade2;
+}
+QPushButton#calculateButton:pressed {
+    background-color: #2980b9;
+}
+</string>
+        </property>
+        <property name="text">
+         <string>计算工资</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="saveButton">
+        <property name="styleSheet">
+         <string notr="true">QPushButton#saveButton {
+    background-color: #f39c12; /* 醒目的橙色，表示“确认/保存” */
+    font-weight: bold;
+    color: white;
+}
+QPushButton#saveButton:hover {
+    background-color: #f5b041;
+}
+QPushButton#saveButton:pressed {
+    background-color: #d68910;
+}</string>
+        </property>
+        <property name="text">
+         <string>保存更改</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

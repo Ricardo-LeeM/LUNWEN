@@ -1,0 +1,535 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>PersonalApplication</class>
+ <widget class="QWidget" name="PersonalApplication">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>675</width>
+    <height>691</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QGroupBox {
+    border: 1px solid #cccccc; /* 浅灰色边框 */
+    border-radius: 5px; /* 圆角边框 */
+    margin-top: 1ex; /* 顶部外边距 */
+    padding: 10px; /* 内边距 */
+    background-color: #ffffff; /* 白色背景 */
+}
+
+QGroupBox::title {
+    subcontrol-origin: margin;
+    subcontrol-position: top center; /* 标题位置 */
+    padding: 0 10px; /* 标题内边距 */
+    background-color: #f5f5f5; /* 浅灰色标题背景 */
+    color: #333333; /* 深灰色标题文字 */
+    font-weight: bold; /* 标题加粗 */
+}</string>
+  </property>
+  <widget class="QLabel" name="labelTitle2">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>10</y>
+     <width>251</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>22</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>我的申报</string>
+   </property>
+  </widget>
+  <widget class="QGroupBox" name="groupBoxFinancial">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>90</y>
+     <width>421</width>
+     <height>151</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>财务申报</string>
+   </property>
+   <widget class="QToolButton" name="tbtnFinancial">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>50</y>
+      <width>201</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::LayoutDirection::LeftToRight</enum>
+    </property>
+    <property name="text">
+     <string>财务申报</string>
+    </property>
+    <property name="popupMode">
+     <enum>QToolButton::ToolButtonPopupMode::MenuButtonPopup</enum>
+    </property>
+    <property name="toolButtonStyle">
+     <enum>Qt::ToolButtonStyle::ToolButtonTextBesideIcon</enum>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labFinancialPassNum">
+    <property name="geometry">
+     <rect>
+      <x>230</x>
+      <y>70</y>
+      <width>111</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel {
+    background-color: transparent; /* 透明背景 */
+    color: #333333; /* 深灰色文字 */
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    border: none; /* 无边框 */
+    padding: 0; /* 无内边距 */
+    margin: 0; /* 无外边距 */
+}</string>
+    </property>
+    <property name="text">
+     <string>通过次数：</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelFinancialNum">
+    <property name="geometry">
+     <rect>
+      <x>230</x>
+      <y>40</y>
+      <width>111</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel {
+    background-color: transparent; /* 透明背景 */
+    color: #333333; /* 深灰色文字 */
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    border: none; /* 无边框 */
+    padding: 0; /* 无内边距 */
+    margin: 0; /* 无外边距 */
+}</string>
+    </property>
+    <property name="text">
+     <string>我的申报次数：</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QGroupBox" name="groupBoxVacation">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>280</y>
+     <width>421</width>
+     <height>151</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>休假申报</string>
+   </property>
+   <widget class="QToolButton" name="tbtnVacation">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>50</y>
+      <width>201</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::LayoutDirection::LeftToRight</enum>
+    </property>
+    <property name="text">
+     <string>休假申报</string>
+    </property>
+    <property name="popupMode">
+     <enum>QToolButton::ToolButtonPopupMode::DelayedPopup</enum>
+    </property>
+    <property name="toolButtonStyle">
+     <enum>Qt::ToolButtonStyle::ToolButtonTextBesideIcon</enum>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelVacationNum">
+    <property name="geometry">
+     <rect>
+      <x>230</x>
+      <y>40</y>
+      <width>111</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel {
+    background-color: transparent; /* 透明背景 */
+    color: #333333; /* 深灰色文字 */
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    border: none; /* 无边框 */
+    padding: 0; /* 无内边距 */
+    margin: 0; /* 无外边距 */
+}</string>
+    </property>
+    <property name="text">
+     <string>我的申报次数：</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labVacationPassNum">
+    <property name="geometry">
+     <rect>
+      <x>230</x>
+      <y>70</y>
+      <width>111</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel {
+    background-color: transparent; /* 透明背景 */
+    color: #333333; /* 深灰色文字 */
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    border: none; /* 无边框 */
+    padding: 0; /* 无内边距 */
+    margin: 0; /* 无外边距 */
+}</string>
+    </property>
+    <property name="text">
+     <string>通过次数：</string>
+    </property>
+   </widget>
+   <widget class="QGroupBox" name="groupBoxVacation_2">
+    <property name="geometry">
+     <rect>
+      <x>210</x>
+      <y>300</y>
+      <width>421</width>
+      <height>151</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>休假申报</string>
+    </property>
+    <widget class="QToolButton" name="tbtnVacation_2">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>50</y>
+       <width>201</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="layoutDirection">
+      <enum>Qt::LayoutDirection::LeftToRight</enum>
+     </property>
+     <property name="text">
+      <string>休假申报</string>
+     </property>
+     <property name="popupMode">
+      <enum>QToolButton::ToolButtonPopupMode::DelayedPopup</enum>
+     </property>
+     <property name="toolButtonStyle">
+      <enum>Qt::ToolButtonStyle::ToolButtonTextBesideIcon</enum>
+     </property>
+    </widget>
+    <widget class="QLabel" name="labelVacationNum_2">
+     <property name="geometry">
+      <rect>
+       <x>230</x>
+       <y>40</y>
+       <width>111</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLabel {
+    background-color: transparent; /* 透明背景 */
+    color: #333333; /* 深灰色文字 */
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    border: none; /* 无边框 */
+    padding: 0; /* 无内边距 */
+    margin: 0; /* 无外边距 */
+}</string>
+     </property>
+     <property name="text">
+      <string>我的申报次数：</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="labVacationPassNum_2">
+     <property name="geometry">
+      <rect>
+       <x>230</x>
+       <y>70</y>
+       <width>111</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLabel {
+    background-color: transparent; /* 透明背景 */
+    color: #333333; /* 深灰色文字 */
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    border: none; /* 无边框 */
+    padding: 0; /* 无内边距 */
+    margin: 0; /* 无外边距 */
+}</string>
+     </property>
+     <property name="text">
+      <string>通过次数：</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QPushButton" name="pushButton_2">
+    <property name="geometry">
+     <rect>
+      <x>650</x>
+      <y>170</y>
+      <width>111</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>查看历史申报</string>
+    </property>
+   </widget>
+   <widget class="QGroupBox" name="groupBoxProjection_2">
+    <property name="geometry">
+     <rect>
+      <x>210</x>
+      <y>490</y>
+      <width>421</width>
+      <height>151</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>立项申报</string>
+    </property>
+    <widget class="QToolButton" name="tbtnProjection_2">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>50</y>
+       <width>201</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="layoutDirection">
+      <enum>Qt::LayoutDirection::LeftToRight</enum>
+     </property>
+     <property name="text">
+      <string>立项申报</string>
+     </property>
+     <property name="popupMode">
+      <enum>QToolButton::ToolButtonPopupMode::DelayedPopup</enum>
+     </property>
+     <property name="toolButtonStyle">
+      <enum>Qt::ToolButtonStyle::ToolButtonTextBesideIcon</enum>
+     </property>
+    </widget>
+    <widget class="QLabel" name="labelProjectionNum_2">
+     <property name="geometry">
+      <rect>
+       <x>230</x>
+       <y>40</y>
+       <width>111</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLabel {
+    background-color: transparent; /* 透明背景 */
+    color: #333333; /* 深灰色文字 */
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    border: none; /* 无边框 */
+    padding: 0; /* 无内边距 */
+    margin: 0; /* 无外边距 */
+}</string>
+     </property>
+     <property name="text">
+      <string>我的申报次数： </string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="labProjectionPassNum_2">
+     <property name="geometry">
+      <rect>
+       <x>230</x>
+       <y>70</y>
+       <width>111</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLabel {
+    background-color: transparent; /* 透明背景 */
+    color: #333333; /* 深灰色文字 */
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    border: none; /* 无边框 */
+    padding: 0; /* 无内边距 */
+    margin: 0; /* 无外边距 */
+}</string>
+     </property>
+     <property name="text">
+      <string>通过次数：</string>
+     </property>
+    </widget>
+   </widget>
+  </widget>
+  <widget class="QGroupBox" name="groupBoxProjection">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>470</y>
+     <width>421</width>
+     <height>151</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>立项申报</string>
+   </property>
+   <widget class="QToolButton" name="tbtnProjection">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>50</y>
+      <width>201</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::LayoutDirection::LeftToRight</enum>
+    </property>
+    <property name="text">
+     <string>立项申报</string>
+    </property>
+    <property name="popupMode">
+     <enum>QToolButton::ToolButtonPopupMode::DelayedPopup</enum>
+    </property>
+    <property name="toolButtonStyle">
+     <enum>Qt::ToolButtonStyle::ToolButtonTextBesideIcon</enum>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelProjectionNum">
+    <property name="geometry">
+     <rect>
+      <x>230</x>
+      <y>40</y>
+      <width>111</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel {
+    background-color: transparent; /* 透明背景 */
+    color: #333333; /* 深灰色文字 */
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    border: none; /* 无边框 */
+    padding: 0; /* 无内边距 */
+    margin: 0; /* 无外边距 */
+}</string>
+    </property>
+    <property name="text">
+     <string>我的申报次数： </string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labProjectionPassNum">
+    <property name="geometry">
+     <rect>
+      <x>230</x>
+      <y>70</y>
+      <width>111</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel {
+    background-color: transparent; /* 透明背景 */
+    color: #333333; /* 深灰色文字 */
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    border: none; /* 无边框 */
+    padding: 0; /* 无内边距 */
+    margin: 0; /* 无外边距 */
+}</string>
+    </property>
+    <property name="text">
+     <string>通过次数：</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QPushButton" name="pushButton">
+   <property name="geometry">
+    <rect>
+     <x>450</x>
+     <y>150</y>
+     <width>111</width>
+     <height>28</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>查看历史申报</string>
+   </property>
+  </widget>
+  <action name="actReimbursementApplication">
+   <property name="text">
+    <string>报销申请</string>
+   </property>
+   <property name="toolTip">
+    <string>报销申请</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::MenuRole::NoRole</enum>
+   </property>
+  </action>
+  <action name="actLoanApplication">
+   <property name="text">
+    <string>借款申请</string>
+   </property>
+   <property name="toolTip">
+    <string>借款申请</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::MenuRole::NoRole</enum>
+   </property>
+  </action>
+  <action name="actSalaryAdjustmentApplication">
+   <property name="text">
+    <string>薪酬调整申报</string>
+   </property>
+   <property name="toolTip">
+    <string>薪酬调整申报</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::MenuRole::NoRole</enum>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

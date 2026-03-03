@@ -1,0 +1,1177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>HomePage</class>
+ <widget class="QWidget" name="HomePage">
+  <property name="windowModality">
+   <enum>Qt::WindowModality::WindowModal</enum>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>868</width>
+    <height>742</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>个人中心</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">/*
+ *  ==================================================================================
+ *  ||  GOOGLE HRMS - GLACIER &amp; MINT THEME (THE FINAL CUT)                        ||
+ *  ||  PHILOSOPHY: Human-Centric Clarity &amp; Effortless Vitality                 ||
+ *  ==================================================================================
+ */
+
+/* ------------------- 1. 全局基石：冰川之上 (The Foundation: Glacial) ------------------- */
+QWidget {
+    font-family: &quot;Inter&quot;, &quot;Segoe UI&quot;, &quot;Helvetica Neue&quot;, &quot;Microsoft YaHei&quot;, sans-serif;
+    font-size: 14px;
+    /* 告别黑暗。我们用几乎看不出的、极其柔和的冷灰色作为基底。*/
+    background-color: #F9FAFB;
+    /* 文字使用深邃但并非100%纯黑的石墨色，清晰而不刺眼。*/
+    color: #1F2937;
+}
+
+
+/* ------------------- 3. 核心交互：薄荷般的清爽 (A Hint of Mint) ------------------- */
+/* 标签 (QLabel) */
+QLabel {
+    background-color: transparent;
+    color: #4B5563; /* 默认标签颜色，清晰柔和 */
+}
+QLabel {
+    color: #1F2937;
+    font-weight: 600;
+}
+
+/* 按钮 (QPushButton): 清晰的行动点 */
+QPushButton {
+    /* 我们的活力来源：薄荷绿。它代表成功、许可、前进。*/
+    background-color: #10B981;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: bold;
+}
+QPushButton:hover {
+    background-color: #059669;
+}
+QPushButton:pressed {
+    background-color: #047857;
+}
+
+/* 输入框 (QLineEdit &amp; QTextEdit): 干净的画布 */
+QLineEdit, QTextEdit {
+    background-color: #F9FAFB; /* 与基底同色，或用#FFFFFF纯白亦可 */
+    border: 3px solid #D1D5DB;
+    border-radius: 6px;
+    padding: 1px;
+    color: #1F2937;
+}
+/* 占位符必须清晰 */
+QLineEdit::placeholder-text {
+    color: #9CA3AF;
+}
+QLineEdit:focus, QTextEdit:focus {
+    border: 2px solid #10B981; /* 焦点时，薄荷绿光环清晰醒目 */
+    padding: 8px; /* 边框变粗，内边距微调保持总高度不变 */
+}
+
+/* ------------------- 4. 数据展示：秩序井然 (Orderly Presentation) ------------------- */
+/* 表格 (QTableWidget) */
+QTabWidget::pane {
+    /* 赋予内容区域一个纯白的背景，使其从#F9FAFB的基底中分离出来 */
+    background-color: #FFFFFF;
+
+    /* 定义一个清晰但柔和的边界 */
+    border: 1px solid #E5E7EB;
+
+    /* 这是核心：让内容区域拥有圆角。注意，顶部的圆角我们特殊处理，以完美融合Tab栏 */
+    border-radius: 8px;
+    border-top-left-radius: 0px; /* 左上角不设圆角，为选中的Tab留出空间 */
+    border-top-right-radius: 8px; /* 保留右上角的圆角 */
+
+    /* 在Tab栏下方留出一些内边距，让内容呼吸 */
+    padding: 20px;
+
+    /* 魔法：让内容区域向上移动一个像素，与Tab栏的下边框无缝衔接 */
+    top: -1px;
+}
+
+QTabBar::tab {
+    /* 为所有Tab设定基础样式 */
+    font-size: 14px;
+    font-weight: 600;
+    color: #6B7280; /* 未选中时的颜色 */
+    padding: 10px 20px;
+
+    /* 默认状态下，Tab没有背景和边框，只是一段文字 */
+    background-color: transparent;
+    border: 1px solid transparent; /* 预留边框位置 */
+    border-bottom: none; /* 底部绝不能有边框 */
+    margin-right: 2px; /* Tab之间的微小间距 */
+}
+
+/* 鼠标悬停在“未选中”的Tab上：给予轻微的视觉反馈 */
+QTabBar::tab:!selected:hover {
+    background-color: #F3F4F6;
+    color: #374151;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+}
+
+/* “选中”的Tab：这是设计的精髓所在 */
+QTabBar::tab:selected {
+    /* 背景色与下方面板的白色完全一致，实现视觉上的“融合” */
+    background-color: #FFFFFF;
+    
+    /* 字体颜色变为我们的主题色“薄荷绿” */
+    color: #059669;
+
+    /* 边框与下方面板完全一致，除了底部 */
+    border: 1px solid #E5E7EB;
+    
+    /* 这是最关键的一步：将底边框的颜色设置为与背景色相同，从而“切开”边框，
+       制造出Tab与内容面板连为一体的视觉假象。*/
+    border-bottom-color: #FFFFFF;
+
+    /* 顶部圆角，与下方容器的圆角设计相呼应 */
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+}
+QHeaderView::section {
+    background-color: #F9FAFB;
+    border: none;
+    border-bottom: 1px solid #E5E7EB;
+    padding: 10px;
+    font-weight: 600;
+    color: #6B7280;
+}
+QTableView::item {
+    border: none;
+    padding: 12px;
+}
+/* 选中行，用薄荷的淡彩 */
+QTableView::item:selected {
+    background-color: #D1FAE5;
+    color: #064E3B;
+}
+
+/* Tab选项卡 (QTabWidget) */
+QTabWidget::pane {
+    border: none;
+}
+QTabBar::tab {
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: #6B7280;
+    padding: 10px 16px;
+    font-size: 14px;
+    margin-right: 8px;
+}
+QTabBar::tab:hover {
+    background-color: #F3F4F6;
+    border-bottom: 2px solid #D1D5DB;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+}
+QTabBar::tab:selected {
+    color: #059669;
+    font-weight: bold;
+    border-bottom: 2px solid #10B981;
+}
+
+/* ------------------- 5. 滚动条：无感的细节 (Invisible Details) ------------------- */
+QScrollBar:vertical, QScrollBar:horizontal {
+    border: none;
+    background: #F9FAFB;
+    width: 10px;
+    height: 10px;
+}
+QScrollBar::handle {
+    background: #D1D5DB;
+    border-radius: 5px;
+}
+QScrollBar::handle:hover {
+    background: #9CA3AF;
+}</string>
+  </property>
+  <widget class="QTabWidget" name="tabWidget">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>841</width>
+     <height>721</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <property name="currentIndex">
+    <number>0</number>
+   </property>
+   <widget class="QWidget" name="tab">
+    <attribute name="title">
+     <string>个人信息</string>
+    </attribute>
+    <widget class="QLabel" name="label">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>320</y>
+       <width>141</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <property name="text">
+      <string>薪资组成：</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="labTime">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>0</y>
+       <width>191</width>
+       <height>71</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Inter</family>
+       <pointsize>-1</pointsize>
+       <fontweight>DemiBold</fontweight>
+      </font>
+     </property>
+     <property name="text">
+      <string>TextLabel</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QGroupBox" name="groupBox">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>130</y>
+       <width>781</width>
+       <height>181</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <property name="title">
+      <string>您的基本信息</string>
+     </property>
+     <widget class="QLabel" name="labelIsPartyMember">
+      <property name="geometry">
+       <rect>
+        <x>250</x>
+        <y>80</y>
+        <width>171</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="text">
+       <string>是否为党员：</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="labelDepartment">
+      <property name="geometry">
+       <rect>
+        <x>251</x>
+        <y>40</y>
+        <width>151</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="text">
+       <string>部   门：</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="labelEmployeeStatus">
+      <property name="geometry">
+       <rect>
+        <x>491</x>
+        <y>40</y>
+        <width>171</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="text">
+       <string>员工状态：</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="labelWorkNature">
+      <property name="geometry">
+       <rect>
+        <x>491</x>
+        <y>90</y>
+        <width>171</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="text">
+       <string>工作性质：</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="labelJoinDate">
+      <property name="geometry">
+       <rect>
+        <x>250</x>
+        <y>130</y>
+        <width>351</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Inter</family>
+        <pointsize>-1</pointsize>
+        <fontweight>DemiBold</fontweight>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="text">
+       <string>入职日期：</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="labelName">
+      <property name="geometry">
+       <rect>
+        <x>21</x>
+        <y>40</y>
+        <width>141</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Inter</family>
+        <pointsize>-1</pointsize>
+        <fontweight>DemiBold</fontweight>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Shadow::Raised</enum>
+      </property>
+      <property name="text">
+       <string>姓   名：</string>
+      </property>
+      <property name="textFormat">
+       <enum>Qt::TextFormat::AutoText</enum>
+      </property>
+     </widget>
+     <widget class="QLabel" name="labelEmployeeID">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>80</y>
+        <width>161</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="text">
+       <string>工   号：</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="labelPosition">
+      <property name="geometry">
+       <rect>
+        <x>21</x>
+        <y>131</y>
+        <width>151</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="text">
+       <string>岗   位：</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="staffImage">
+      <property name="geometry">
+       <rect>
+        <x>620</x>
+        <y>30</y>
+        <width>141</width>
+        <height>141</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QScrollArea" name="scrollArea">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>350</y>
+       <width>791</width>
+       <height>291</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">/* ScrollArea Styling (if not covered by global QWidget) */
+QScrollArea {
+    border: none; /* Often scroll areas themselves don't need a border if their content does */
+    background-color: transparent; /* Or #FFFFFF if you want it to have a white bg */
+}
+
+/* ScrollBar Styling (Consistent and modern) */
+QScrollBar:vertical {
+    border: 1px solid #D0D3D4;
+    background-color: #F0F0F0;
+    width: 14px; /* Slightly wider for easier clicking */
+    margin: 0px 0px 0px 0px;
+    border-radius: 3px;
+}
+QScrollBar::handle:vertical {
+    background-color: #B0B0B0; /* Medium gray handle */
+    min-height: 25px;
+    border-radius: 3px;
+    margin: 1px;
+}
+QScrollBar::handle:vertical:hover {
+    background-color: #909090; /* Darker on hover */
+}
+QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
+    border: none;
+    background: none;
+    height: 0px; /* Hide default arrows, or style them if desired */
+    subcontrol-position: top;
+    subcontrol-origin: margin;
+}
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+    background: none;
+}
+
+QScrollBar:horizontal {
+    border: 1px solid #D0D3D4;
+    background-color: #F0F0F0;
+    height: 14px;
+    margin: 0px 0px 0px 0px;
+    border-radius: 3px;
+}
+QScrollBar::handle:horizontal {
+    background-color: #B0B0B0;
+    min-width: 25px;
+    border-radius: 3px;
+    margin: 1px;
+}
+QScrollBar::handle:horizontal:hover {
+    background-color: #909090;
+}
+QScrollBar::add-line:horizontal, QScrollBar::sub-line:horizontal {
+    border: none;
+    background: none;
+    width: 0px;
+    subcontrol-position: left;
+    subcontrol-origin: margin;
+}
+QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal {
+    background: none;
+}
+</string>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::Shape::NoFrame</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Shadow::Raised</enum>
+     </property>
+     <property name="widgetResizable">
+      <bool>true</bool>
+     </property>
+     <widget class="QWidget" name="scrollAreaWidgetContents">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>791</width>
+        <height>291</height>
+       </rect>
+      </property>
+      <widget class="QPushButton" name="btnFromExcel">
+       <property name="geometry">
+        <rect>
+         <x>684</x>
+         <y>72</y>
+         <width>96</width>
+         <height>39</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true"/>
+       </property>
+       <property name="text">
+        <string>导入表格</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="btnToExcel">
+       <property name="geometry">
+        <rect>
+         <x>684</x>
+         <y>179</y>
+         <width>96</width>
+         <height>39</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true"/>
+       </property>
+       <property name="text">
+        <string>导出表格</string>
+       </property>
+      </widget>
+      <widget class="QTableView" name="tableView">
+       <property name="geometry">
+        <rect>
+         <x>11</x>
+         <y>27</y>
+         <width>666</width>
+         <height>241</height>
+        </rect>
+       </property>
+      </widget>
+     </widget>
+    </widget>
+    <widget class="QLabel" name="labWelcome">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>70</y>
+       <width>181</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>TextLabel</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="tab_2">
+    <attribute name="title">
+     <string>个人申请</string>
+    </attribute>
+    <widget class="QGroupBox" name="groupBoxVacation">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>210</y>
+       <width>731</width>
+       <height>201</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">/* ------------------- 2. 结构与悬浮感：现代主义的进化 (Modernist Structure) ------------------- */
+QGroupBox {
+    /* 卡片使用纯白，与基底形成微妙的对比，营造悬浮感。*/
+    background-color: #FFFFFF;
+    /* 彻底抛弃边框，我们用现代的阴影效果来定义边界，更轻盈、更高级。*/
+    border: none;
+    border-radius: 8px;
+    /* 这行是魔法：给卡片一个柔和的、几乎看不见的阴影。 */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+    margin-top: 15px;
+    padding: 20px; /* 为内容提供充足的呼吸空间 */
+}
+QGroupBox::title {
+    subcontrol-origin: margin;
+    subcontrol-position: top left;
+    padding: 0 10px;
+    margin-left: 10px;
+    color: #374151;
+    font-size: 16px;
+    font-weight: 600; /* 使用字重600，比bold柔和，比normal挺拔 */
+}
+</string>
+     </property>
+     <property name="title">
+      <string>休假申报</string>
+     </property>
+     <widget class="QToolButton" name="tbtnVacation">
+      <property name="geometry">
+       <rect>
+        <x>480</x>
+        <y>40</y>
+        <width>201</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LayoutDirection::LeftToRight</enum>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">/* PushButton 样式 */
+QPushButton {
+    background-color: #d8cbf0;
+    color: #5a4a7a;
+    border: 1px solid #9c7fd0;
+    border-radius: 4px;
+    padding: 5px 12px;
+    font-weight: 500;
+}
+
+QPushButton:hover {
+    background-color: #e0d4f8;
+    border-color: #8c6dc9;
+}
+
+QPushButton:pressed {
+    background-color: #c9b8eb;
+}
+
+QPushButton:disabled {
+    background-color: #e6e0f0;
+    color: #a99bc0;
+}</string>
+      </property>
+      <property name="text">
+       <string>提交申报</string>
+      </property>
+      <property name="popupMode">
+       <enum>QToolButton::ToolButtonPopupMode::DelayedPopup</enum>
+      </property>
+      <property name="toolButtonStyle">
+       <enum>Qt::ToolButtonStyle::ToolButtonTextBesideIcon</enum>
+      </property>
+     </widget>
+     <widget class="QLabel" name="labelVacationNum">
+      <property name="geometry">
+       <rect>
+        <x>540</x>
+        <y>120</y>
+        <width>161</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLabel {
+    background-color: transparent; /* 透明背景 */
+    color: #333333; /* 深灰色文字 */
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    border: none; /* 无边框 */
+    padding: 0; /* 无内边距 */
+    margin: 0; /* 无外边距 */
+}</string>
+      </property>
+      <property name="text">
+       <string>我的申报次数：</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="labVacationPassNum">
+      <property name="geometry">
+       <rect>
+        <x>540</x>
+        <y>160</y>
+        <width>111</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLabel {
+    background-color: transparent; /* 透明背景 */
+    color: #333333; /* 深灰色文字 */
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    border: none; /* 无边框 */
+    padding: 0; /* 无内边距 */
+    margin: 0; /* 无外边距 */
+}</string>
+      </property>
+      <property name="text">
+       <string>通过次数：</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="labContent_2">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>110</y>
+        <width>69</width>
+        <height>19</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>申报内容</string>
+      </property>
+     </widget>
+     <widget class="QTextEdit" name="textEdit_2">
+      <property name="geometry">
+       <rect>
+        <x>80</x>
+        <y>90</y>
+        <width>441</width>
+        <height>101</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="labName_2">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>50</y>
+        <width>91</width>
+        <height>19</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="text">
+       <string>申  报  人</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="lineEditName_2">
+      <property name="geometry">
+       <rect>
+        <x>110</x>
+        <y>50</y>
+        <width>181</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QGroupBox" name="groupBoxFinancial">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>10</y>
+       <width>731</width>
+       <height>201</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">/* ------------------- 2. 结构与悬浮感：现代主义的进化 (Modernist Structure) ------------------- */
+QGroupBox {
+    /* 卡片使用纯白，与基底形成微妙的对比，营造悬浮感。*/
+    background-color: #FFFFFF;
+    /* 彻底抛弃边框，我们用现代的阴影效果来定义边界，更轻盈、更高级。*/
+    border: none;
+    border-radius: 8px;
+    /* 这行是魔法：给卡片一个柔和的、几乎看不见的阴影。 */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+    margin-top: 15px;
+    padding: 20px; /* 为内容提供充足的呼吸空间 */
+}
+QGroupBox::title {
+    subcontrol-origin: margin;
+    subcontrol-position: top left;
+    padding: 0 10px;
+    margin-left: 10px;
+    color: #374151;
+    font-size: 16px;
+    font-weight: 600; /* 使用字重600，比bold柔和，比normal挺拔 */
+}
+</string>
+     </property>
+     <property name="title">
+      <string>财务申报</string>
+     </property>
+     <widget class="QLabel" name="labFinancialPassNum">
+      <property name="geometry">
+       <rect>
+        <x>540</x>
+        <y>150</y>
+        <width>111</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLabel {
+    background-color: transparent; /* 透明背景 */
+    color: #333333; /* 深灰色文字 */
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    border: none; /* 无边框 */
+    padding: 0; /* 无内边距 */
+    margin: 0; /* 无外边距 */
+}</string>
+      </property>
+      <property name="text">
+       <string>通过次数：</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="labelFinancialNum">
+      <property name="geometry">
+       <rect>
+        <x>540</x>
+        <y>110</y>
+        <width>151</width>
+        <height>19</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLabel {
+    background-color: transparent; /* 透明背景 */
+    color: #333333; /* 深灰色文字 */
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    border: none; /* 无边框 */
+    padding: 0; /* 无内边距 */
+    margin: 0; /* 无外边距 */
+}</string>
+      </property>
+      <property name="text">
+       <string>我的申报次数：</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="labName">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>50</y>
+        <width>81</width>
+        <height>19</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="text">
+       <string>申  报  人</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="lineEditName">
+      <property name="geometry">
+       <rect>
+        <x>100</x>
+        <y>50</y>
+        <width>171</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="labContent">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>110</y>
+        <width>69</width>
+        <height>19</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="text">
+       <string>申报内容</string>
+      </property>
+     </widget>
+     <widget class="QTextEdit" name="textEdit">
+      <property name="geometry">
+       <rect>
+        <x>80</x>
+        <y>90</y>
+        <width>441</width>
+        <height>101</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+     </widget>
+     <widget class="QToolButton" name="tbtnFinancial">
+      <property name="geometry">
+       <rect>
+        <x>480</x>
+        <y>40</y>
+        <width>201</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="contextMenuPolicy">
+       <enum>Qt::ContextMenuPolicy::DefaultContextMenu</enum>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LayoutDirection::LeftToRight</enum>
+      </property>
+      <property name="text">
+       <string>提交申报</string>
+      </property>
+      <property name="popupMode">
+       <enum>QToolButton::ToolButtonPopupMode::DelayedPopup</enum>
+      </property>
+      <property name="toolButtonStyle">
+       <enum>Qt::ToolButtonStyle::ToolButtonTextBesideIcon</enum>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QGroupBox" name="groupBoxProjection">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>420</y>
+       <width>731</width>
+       <height>221</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">/* ------------------- 2. 结构与悬浮感：现代主义的进化 (Modernist Structure) ------------------- */
+QGroupBox {
+    /* 卡片使用纯白，与基底形成微妙的对比，营造悬浮感。*/
+    background-color: #FFFFFF;
+    /* 彻底抛弃边框，我们用现代的阴影效果来定义边界，更轻盈、更高级。*/
+    border: none;
+    border-radius: 8px;
+    /* 这行是魔法：给卡片一个柔和的、几乎看不见的阴影。 */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+    margin-top: 15px;
+    padding: 20px; /* 为内容提供充足的呼吸空间 */
+}
+QGroupBox::title {
+    subcontrol-origin: margin;
+    subcontrol-position: top left;
+    padding: 0 10px;
+    margin-left: 10px;
+    color: #374151;
+    font-size: 16px;
+    font-weight: 600; /* 使用字重600，比bold柔和，比normal挺拔 */
+}
+</string>
+     </property>
+     <property name="title">
+      <string>立项申报</string>
+     </property>
+     <widget class="QToolButton" name="tbtnProjection">
+      <property name="geometry">
+       <rect>
+        <x>480</x>
+        <y>40</y>
+        <width>201</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LayoutDirection::LeftToRight</enum>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">/* PushButton 样式 */
+QPushButton {
+    background-color: #d8cbf0;
+    color: #5a4a7a;
+    border: 1px solid #9c7fd0;
+    border-radius: 4px;
+    padding: 5px 12px;
+    font-weight: 500;
+}
+
+QPushButton:hover {
+    background-color: #e0d4f8;
+    border-color: #8c6dc9;
+}
+
+QPushButton:pressed {
+    background-color: #c9b8eb;
+}
+
+QPushButton:disabled {
+    background-color: #e6e0f0;
+    color: #a99bc0;
+}</string>
+      </property>
+      <property name="text">
+       <string>提交申报</string>
+      </property>
+      <property name="popupMode">
+       <enum>QToolButton::ToolButtonPopupMode::DelayedPopup</enum>
+      </property>
+      <property name="toolButtonStyle">
+       <enum>Qt::ToolButtonStyle::ToolButtonTextBesideIcon</enum>
+      </property>
+     </widget>
+     <widget class="QLabel" name="labelProjectionNum">
+      <property name="geometry">
+       <rect>
+        <x>540</x>
+        <y>130</y>
+        <width>161</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLabel {
+    background-color: transparent; /* 透明背景 */
+    color: #333333; /* 深灰色文字 */
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    border: none; /* 无边框 */
+    padding: 0; /* 无内边距 */
+    margin: 0; /* 无外边距 */
+}</string>
+      </property>
+      <property name="text">
+       <string>我的申报次数： </string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="labProjectionPassNum">
+      <property name="geometry">
+       <rect>
+        <x>540</x>
+        <y>180</y>
+        <width>111</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLabel {
+    background-color: transparent; /* 透明背景 */
+    color: #333333; /* 深灰色文字 */
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    border: none; /* 无边框 */
+    padding: 0; /* 无内边距 */
+    margin: 0; /* 无外边距 */
+}</string>
+      </property>
+      <property name="text">
+       <string>通过次数：</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="labContent_3">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>110</y>
+        <width>69</width>
+        <height>19</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="text">
+       <string>申报内容</string>
+      </property>
+     </widget>
+     <widget class="QTextEdit" name="textEdit_3">
+      <property name="geometry">
+       <rect>
+        <x>90</x>
+        <y>90</y>
+        <width>441</width>
+        <height>121</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="labName_3">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>50</y>
+        <width>81</width>
+        <height>19</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="text">
+       <string>申  报  人</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="lineEditName_3">
+      <property name="geometry">
+       <rect>
+        <x>110</x>
+        <y>50</y>
+        <width>171</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+     </widget>
+    </widget>
+   </widget>
+  </widget>
+  <action name="actReimbursementApplication">
+   <property name="text">
+    <string>报销申请</string>
+   </property>
+   <property name="toolTip">
+    <string>报销申请</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::MenuRole::NoRole</enum>
+   </property>
+  </action>
+  <action name="actLoanApplication">
+   <property name="text">
+    <string>借款申请</string>
+   </property>
+   <property name="toolTip">
+    <string>借款申请</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::MenuRole::NoRole</enum>
+   </property>
+  </action>
+  <action name="actSalaryAdjustmentApplication">
+   <property name="text">
+    <string>薪酬调整申报</string>
+   </property>
+   <property name="toolTip">
+    <string>薪酬调整申报</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::MenuRole::NoRole</enum>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
