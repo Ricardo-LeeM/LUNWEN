@@ -69,6 +69,14 @@ public:
     bool deleteInterviewee(int id);
 
 
+    // --- 新增：聊天系统数据库接口 ---
+    bool insertChatMessage(int senderId, int receiverId, const QString &content);// 1. 发送消息（插入数据库）
+    QSqlQuery getChatHistory(int user1Id, int user2Id);// 2. 获取两人之间的历史聊天记录
+    QSqlQuery getUnreadMessages(int myUserId);// 3. 获取发给我的未读消息
+    bool markMessageAsRead(int msgId);// 4. 将某条消息标记为已读
+    QSqlQuery getOtherEmployees(int myUserId);// 5. 获取除了自己以外的员工列表 (用于联系人列表)
+
+
 private:
     // 私有构造函数和析构函数，确保是单例
     explicit DatabaseManager(QObject *parent = nullptr);
