@@ -7,6 +7,9 @@
 #include <QMainWindow>
 #include "taskcardwidget.h"
 #include <QStandardItemModel> // <-- **重要修改：将 QSqlTableModel 替换为 QStandardItemModel**
+#include "databasemanager.h"
+#include <QListWidgetItem>
+#include <QTimer>
 
 // 前向声明
 class QLayout;
@@ -38,6 +41,9 @@ private slots:
     void on_btnFromExcel_clicked();
     void on_btnToExcel_clicked();
     void on_shuaxinButton_clicked();
+    void on_btnSendMessage_clicked();
+    void on_listWidgetContacts_itemClicked(QListWidgetItem *item);
+    void fetchNewMessages(); // 定时器拉取新消息
 
 private:
     Ui::PersonalInterface *ui; // 指向UI界面的指针
@@ -57,6 +63,12 @@ private:
     void initializeSalaryTable();
     void loadTaskCards();
     void clearLayout(QLayout* layout);
+    QTimer *chatTimer;
+    int currentChatUserId = -1;
+
+    void loadContacts();
+    void loadChatHistory(int targetUserId);
+    void appendChatMessage(const QString &text, bool isMine);
 
     // **不再需要的旧函数声明（已移除）**
     // void updateFinancialNumSlot();
