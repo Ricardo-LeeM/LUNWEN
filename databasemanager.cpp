@@ -812,3 +812,61 @@ bool DatabaseManager::updateApprovalStats(const QString& applicantName, bool isA
     }
     return true;
 }
+
+
+bool DatabaseManager::insertChatMessage(int senderId, int receiverId, const QString &content)
+{
+    QSqlQuery query(m_db); // 假设你的数据库连接对象叫 m_database，请根据你实际代码调整
+    query.prepare("INSERT INTO chat_messages (sender_id, receiver_id, content) "
+                  "VALUES (:sender, :receiver, :content)");
+    query.bindValue(":sender", senderId);
+    query.bindValue(":receiver", receiverId);
+    query.bindValue(":content", content);
+
+    if (!query.exec()) {
+        qDebug() << "插入聊天记录失败: " << query.lastError().text();
+        return false;
+    }
+    return true;
+}
+
+QSqlQuery DatabaseManager::getChatHistory(int user1Id, int user2Id)
+{
+    QSqlQuery query(m_db);
+    query.prepare("SELECT sender_id, content FROM chat_messages "
+                  "WHERE (sender_id = :u1 AND receiver_id = :u2) "
+                  "   OR (sender_id = :u3 AND receiver_id = :u4) "
+                  "ORDER BY send_time ASC");
+    query.bindValue(":u1", user1Id);
+    query.bindValue(":u2", user2Id);
+    query.bindValue(":u3", user2Id);
+    query.bindValue(":u4", user1Id);
+    query.exec();
+    return query;
+}
+
+QSqlQuery DatabaseManager::getUnreadMessages(int myUserId)
+{
+    QSqlQuery query(m_db);
+    query.prepare("SELECT EmployeeID, Name, Department, Position, Pic FROM basicinfo WHERE EmployeeID != :myId");
+    query.bindValue(":myId", myUserId);
+    query.exec();
+    return query;
+}
+
+bool DatabaseManager::markMessageAsRead(int msgId)
+{
+    QSqlQuery query(m_db);
+    query.prepare("UPDATE chat_messages SET is_read = 1 WHERE msg_id = :msgId");
+    query.bindValue(":msgId", msgId);
+    return query.exec();
+}
+
+QSqlQuery DatabaseManager::getOtherEmployees(int myUserId)
+{
+    QSqlQuery query(m_db);
+    query.prepare("SELECT EmployeeID, Name FROM basicinfo WHERE EmployeeID != :myId");
+    query.bindValue(":myId", myUserId);
+    query.exec();
+    return query;
+}
