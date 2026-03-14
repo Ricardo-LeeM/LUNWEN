@@ -594,11 +594,10 @@ void HomePage::loadContacts()
 
     ui->listWidgetContacts->clear();
 
-    // 美化列表：设置图标大小和间距
-    ui->listWidgetContacts->setIconSize(QSize(45, 45));
-    ui->listWidgetContacts->setSpacing(4);
+    // 1. 确保图标尺寸足够大，间距合适
+    ui->listWidgetContacts->setIconSize(QSize(50, 50));
+    ui->listWidgetContacts->setSpacing(5);
 
-    // 获取查询结果
     QSqlQuery query = DatabaseManager::instance()->getOtherEmployees(session->employeeID());
 
     while (query.next()) {
@@ -608,17 +607,26 @@ void HomePage::loadContacts()
         QString position = query.value(3).toString();
         QByteArray imgData = query.value(4).toByteArray();
 
-        // 组装显示文本
+        // 打印调试信息，看数据库到底查出东西没有
+        qDebug() << "拉取联系人:" << name << "部门:" << dept << "照片大小:" << imgData.size();
+
+        // 组装文本
         QString displayText = QString("%1\n%2 | %3").arg(name, dept, position);
 
         QListWidgetItem *item = new QListWidgetItem(displayText);
         item->setData(Qt::UserRole, empId);
 
+        //核心修复：强制让这个列表项的高度变成 60 像素，确保能容纳两行文字和头像
+        item->setSizeHint(QSize(0, 60));
+
         QPixmap pixmap;
         if (!imgData.isEmpty() && pixmap.loadFromData(imgData)) {
             item->setIcon(QIcon(pixmap));
+        } else {
+            // 如果数据库里这个人没有存照片，这里会跳过。
+            // 建议：你可以取消下面这行的注释，给没有照片的人加个默认头像（需确认资源文件路径）
+            item->setIcon(QIcon(":/C:/images/xiyang.png"));
         }
-
 
         ui->listWidgetContacts->addItem(item);
     }
@@ -719,16 +727,31 @@ void HomePage::fetchNewMessages()
 // 极其简单的 HTML 渲染，区分左右气泡
 void HomePage::appendChatMessage(const QString &text, bool isMine)
 {
+    // 注意：如果是管理员端的 homepage.cpp，记得把前面的 PersonalInterface:: 改回 HomePage::
     QString html;
+
+    // 把换行符转换为 HTML 的 <br>，防止长文本变成单行
+    QString safeText = text.toHtmlEscaped().replace("\n", "<br>");
+
     if (isMine) {
-        // 自己发的消息：靠右，简单加粗区分一下（因为不写CSS，用基础HTML标签代替）
-        html = QString("<div align='right' style='margin-bottom: 5px;'>"
-                       "<b>我: </b><br>%1</div>").arg(text.toHtmlEscaped());
+        // 我发的消息：整体靠左 (使用 align='left' 兼容 Qt 富文本)
+        html = QString("<div align='left' style='margin-top: 8px; margin-bottom: 8px;'>"
+                       // 第一行：名字加冒号，靠左，灰色小字
+                       "<div style='color: #888888; font-size: 12px; margin-bottom: 4px;'>我：</div>"
+                       // 第二行：气泡消息内容 (去掉了 Qt 不支持的 flex)
+                       "<div><span style='background-color: #95ec69; color: black; padding: 10px 14px; "
+                       "border-radius: 8px; font-size: 14px; max-width: 75%; text-align: left; display: inline-block;'>"
+                       "%1</span></div></div>").arg(safeText);
     } else {
-        // 别人发的消息：靠左
-        html = QString("<div align='left' style='margin-bottom: 5px;'>"
-                       "<i>对方: </i><br>%1</div>").arg(text.toHtmlEscaped());
+        // 别人发的消息：整体靠右 (使用 align='right' 兼容 Qt 富文本)
+        html = QString("<div align='right' style='margin-top: 8px; margin-bottom: 8px;'>"
+                       // 第一行：名字加冒号，靠右，灰色小字
+                       "<div style='color: #888888; font-size: 12px; margin-bottom: 4px;'>对方：</div>"
+                       // 第二行：气泡消息内容 (去掉了 Qt 不支持的 flex)
+                       "<div><span style='background-color: #ffffff; color: black; padding: 10px 14px; "
+                       "border-radius: 8px; font-size: 14px; max-width: 75%; text-align: left; border: 1px solid #e0e0e0; display: inline-block;'>"
+                       "%1</span></div></div>").arg(safeText);
     }
+
     ui->textBrowserChat->append(html);
 }
-
