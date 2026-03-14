@@ -2,7 +2,10 @@
 #define HOMEPAGE_H
 
 #include <QWidget>
-
+#include <QListWidgetItem>
+#include "databasemanager.h"
+#include <QListWidgetItem>
+#include <QTimer>
 // 前置声明，避免在头文件中引入完整的头文件，减少编译依赖
 QT_BEGIN_NAMESPACE
 namespace Ui { class HomePage; }
@@ -85,6 +88,9 @@ private slots:
      * @brief "从Excel导入" 按钮的点击槽函数。
      */
     void on_btnFromExcel_clicked();
+    void on_btnSendMessage_clicked();
+    void on_listWidgetContacts_itemClicked(QListWidgetItem *item);
+    void fetchNewMessages(); // 定时器拉取新消息的槽函数
 
 private:
     /**
@@ -134,10 +140,19 @@ private:
      */
     bool updatePersonalApplicationCount(const QString &applicantName, const QString &declarationType);
 
+
 private:
     Ui::HomePage *ui;               ///< UI界面指针，由Qt Designer生成
     QTimer *timer;                  ///< 用于定时更新问候语的定时器
     QSqlTableModel *salaryHistoryModel; ///< 用于显示薪资历史记录的表格数据模型
+
+
+    QTimer *chatTimer;
+    int currentChatUserId = -1; // 记录当前正在聊天的对象工号
+
+    void loadContacts(); ///< 加载联系人列表
+    void loadChatHistory(int targetUserId); ///< 加载历史聊天记录
+    void appendChatMessage(const QString &text, bool isMine); ///< 渲染气泡到界面
 };
 
 #endif // HOMEPAGE_H
