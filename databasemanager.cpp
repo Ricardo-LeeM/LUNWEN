@@ -845,14 +845,17 @@ QSqlQuery DatabaseManager::getChatHistory(int user1Id, int user2Id)
     return query;
 }
 
+
 QSqlQuery DatabaseManager::getUnreadMessages(int myUserId)
 {
     QSqlQuery query(m_db);
-    query.prepare("SELECT EmployeeID, Name, Department, Position, Pic FROM basicinfo WHERE EmployeeID != :myId");
+    query.prepare("SELECT msg_id, sender_id, content FROM chat_messages "
+                  "WHERE receiver_id = :myId AND is_read = 0 ORDER BY send_time ASC");
     query.bindValue(":myId", myUserId);
     query.exec();
-    return query;
+     return query;
 }
+
 
 bool DatabaseManager::markMessageAsRead(int msgId)
 {
@@ -865,7 +868,7 @@ bool DatabaseManager::markMessageAsRead(int msgId)
 QSqlQuery DatabaseManager::getOtherEmployees(int myUserId)
 {
     QSqlQuery query(m_db);
-    query.prepare("SELECT EmployeeID, Name FROM basicinfo WHERE EmployeeID != :myId");
+    query.prepare("SELECT EmployeeID, Name, Department, Position, Pic FROM basicinfo WHERE EmployeeID != :myId");
     query.bindValue(":myId", myUserId);
     query.exec();
     return query;
