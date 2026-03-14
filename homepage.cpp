@@ -9,6 +9,7 @@
 #include <QTime>
 #include <QDir>
 #include <QFileDialog>
+#include <QDebug>
 
 // Qt 数据库模块
 #include <QSqlDatabase>
@@ -21,6 +22,7 @@
 #include <QTableView>
 #include <QHeaderView>
 #include <QVBoxLayout>
+#include <QScrollBar>
 
 // Qt Windows 平台特定模块 (用于操作Excel)
 #ifdef Q_OS_WIN
@@ -72,6 +74,21 @@ HomePage::HomePage(QWidget *parent)
         updateVacationNumslot();
         updateProjectionNumslot();
     }
+
+    // 6.隐藏聊天界面的某些部件直到选择了聊天对象
+    ui->textBrowserChat->setEnabled(false);
+    ui->textEditMessage->setEnabled(false);
+    ui->btnSendMessage->setEnabled(false);
+
+    loadContacts(); // 拉取员工列表
+
+    // 初始化轮询定时器（每2秒检查一次新消息）
+    chatTimer = new QTimer(this);
+    connect(chatTimer, &QTimer::timeout, this, &HomePage::fetchNewMessages);
+    chatTimer->start(2000);
+    // 手动绑定发送按钮的点击信号
+    connect(ui->btnSendMessage, &QPushButton::clicked, this, &HomePage::on_btnSendMessage_clicked);
+    connect(ui->listWidgetContacts, &QListWidget::itemClicked, this, &HomePage::on_listWidgetContacts_itemClicked);
 }
 
 HomePage::~HomePage()
@@ -246,6 +263,7 @@ void HomePage::updateTime()
 {
     // 定时器触发时，更新问候语
     ui->labTime->setText(getGreeting());
+
 }
 
 QString HomePage::getGreeting()
@@ -567,3 +585,150 @@ bool HomePage::updatePersonalApplicationCount(const QString &applicantName, cons
         return false;
     }
 }
+
+// 拉取员工列表
+void HomePage::loadContacts()
+{
+    UserSession *session = UserSession::instance();
+    if (session->employeeID() == -1) return;
+
+    ui->listWidgetContacts->clear();
+
+    // 美化列表：设置图标大小和间距
+    ui->listWidgetContacts->setIconSize(QSize(45, 45));
+    ui->listWidgetContacts->setSpacing(4);
+
+    // 获取查询结果
+    QSqlQuery query = DatabaseManager::instance()->getOtherEmployees(session->employeeID());
+
+    while (query.next()) {
+        int empId = query.value(0).toInt();
+        QString name = query.value(1).toString();
+        QString dept = query.value(2).toString();
+        QString position = query.value(3).toString();
+        QByteArray imgData = query.value(4).toByteArray();
+
+        // 组装显示文本
+        QString displayText = QString("%1\n%2 | %3").arg(name, dept, position);
+
+        QListWidgetItem *item = new QListWidgetItem(displayText);
+        item->setData(Qt::UserRole, empId);
+
+        QPixmap pixmap;
+        if (!imgData.isEmpty() && pixmap.loadFromData(imgData)) {
+            item->setIcon(QIcon(pixmap));
+        }
+
+
+        ui->listWidgetContacts->addItem(item);
+    }
+}
+
+
+void HomePage::on_listWidgetContacts_itemClicked(QListWidgetItem *item)
+{
+    if (!item) return;
+
+    // 获取点击的员工工号
+    currentChatUserId = item->data(Qt::UserRole).toInt();
+    ui->labChatTarget->setText("与 " + item->text() + " 聊天中...");
+
+    // 激活输入面板
+    ui->textBrowserChat->setEnabled(true);
+    ui->textEditMessage->setEnabled(true);
+    ui->btnSendMessage->setEnabled(true);
+
+    loadChatHistory(currentChatUserId);
+}
+
+
+// 点击加载联系人聊天记录
+void HomePage::loadChatHistory(int targetUserId)
+{
+    ui->textBrowserChat->clear();
+    UserSession *session = UserSession::instance();
+    int myId = session->employeeID();
+
+    // 查的是聊天记录，不是 basicinfo！
+    QSqlQuery query = DatabaseManager::instance()->getChatHistory(myId, targetUserId);
+
+    while (query.next()) {
+        int senderId = query.value(0).toInt();
+        QString content = query.value(1).toString();
+        bool isMine = (senderId == myId);
+
+        appendChatMessage(content, isMine);
+    }
+
+    QScrollBar *scrollBar = ui->textBrowserChat->verticalScrollBar();
+    scrollBar->setValue(scrollBar->maximum());
+}
+
+
+// 发送消息
+void HomePage::on_btnSendMessage_clicked()
+{
+    if (currentChatUserId == -1) return;
+
+    QString content = ui->textEditMessage->toPlainText().trimmed();
+    if (content.isEmpty()) return;
+
+    int myId = UserSession::instance()->employeeID();
+
+    // 调用 DatabaseManager 执行插入
+    if (DatabaseManager::instance()->insertChatMessage(myId, currentChatUserId, content)) {
+        // 数据库插入成功后，本地立刻显示
+        appendChatMessage(content, true);
+        ui->textEditMessage->clear();
+
+        QScrollBar *scrollBar = ui->textBrowserChat->verticalScrollBar();
+        scrollBar->setValue(scrollBar->maximum());
+    } else {
+        QMessageBox::warning(this, "发送失败", "数据库写入失败，请检查网络！");
+    }
+}
+
+
+
+void HomePage::fetchNewMessages()
+{
+    int myId = UserSession::instance()->employeeID();
+    if (myId == -1) return;
+
+    // 调用 DatabaseManager 获取发给我的未读消息
+    QSqlQuery query = DatabaseManager::instance()->getUnreadMessages(myId);
+
+    while (query.next()) {
+        int msgId = query.value(0).toInt();
+        int senderId = query.value(1).toInt();
+        QString content = query.value(2).toString();
+
+        // 如果这条消息正好是当前正在聊天的人发来的
+        if (senderId == currentChatUserId) {
+            appendChatMessage(content, false);
+
+            QScrollBar *scrollBar = ui->textBrowserChat->verticalScrollBar();
+            scrollBar->setValue(scrollBar->maximum());
+
+            // 将该消息标记为已读
+            DatabaseManager::instance()->markMessageAsRead(msgId);
+        }
+    }
+}
+
+// 极其简单的 HTML 渲染，区分左右气泡
+void HomePage::appendChatMessage(const QString &text, bool isMine)
+{
+    QString html;
+    if (isMine) {
+        // 自己发的消息：靠右，简单加粗区分一下（因为不写CSS，用基础HTML标签代替）
+        html = QString("<div align='right' style='margin-bottom: 5px;'>"
+                       "<b>我: </b><br>%1</div>").arg(text.toHtmlEscaped());
+    } else {
+        // 别人发的消息：靠左
+        html = QString("<div align='left' style='margin-bottom: 5px;'>"
+                       "<i>对方: </i><br>%1</div>").arg(text.toHtmlEscaped());
+    }
+    ui->textBrowserChat->append(html);
+}
+
