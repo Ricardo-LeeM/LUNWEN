@@ -422,30 +422,45 @@ void PersonalInterface::fetchNewMessages()
 // 极其简单的 HTML 渲染，区分左右气泡
 void PersonalInterface::appendChatMessage(const QString &text, bool isMine)
 {
-    // 注意：如果是管理员端的 homepage.cpp，记得把前面的 PersonalInterface:: 改回 HomePage::
+    // 注意：在 homepage.cpp 中，记得把这行的方法名改为 void HomePage::appendChatMessage
     QString html;
 
     // 把换行符转换为 HTML 的 <br>，防止长文本变成单行
     QString safeText = text.toHtmlEscaped().replace("\n", "<br>");
 
     if (isMine) {
-        // 我发的消息：整体靠左 (使用 align='left' 兼容 Qt 富文本)
-        html = QString("<div align='left' style='margin-top: 8px; margin-bottom: 8px;'>"
-                       // 第一行：名字加冒号，靠左，灰色小字
-                       "<div style='color: #888888; font-size: 12px; margin-bottom: 4px;'>我：</div>"
-                       // 第二行：气泡消息内容 (去掉了 Qt 不支持的 flex)
-                       "<div><span style='background-color: #95ec69; color: black; padding: 10px 14px; "
-                       "border-radius: 8px; font-size: 14px; max-width: 75%; text-align: left; display: inline-block;'>"
-                       "%1</span></div></div>").arg(safeText);
+        // 我发出的消息：整体靠右
+        // 使用一个宽度 100% 的外层表格占满整行，内层表格做背景气泡
+        html = QString(
+                   "<table width='100%' border='0' cellpadding='0' cellspacing='0' style='margin-top: 5px; margin-bottom: 5px;'>"
+                   "<tr><td align='right'>"
+                   // 第一行：名字加冒号，靠右，灰色小字
+                   "<div style='color: #888888; font-size: 12px; margin-bottom: 2px;'>我：</div>"
+                   // 第二行：气泡消息内容 (通过 cellpadding 控制内边距，bgcolor 控制背景色)
+                   "<table border='0' cellpadding='8' cellspacing='0'>"
+                   "<tr><td bgcolor='#95ec69' style='border-radius: 6px;'>"
+                   "<span style='color: black; font-size: 14px;'>%1</span>"
+                   "</td></tr>"
+                   "</table>"
+                   "</td></tr>"
+                   "</table>"
+                   ).arg(safeText);
     } else {
-        // 别人发的消息：整体靠右 (使用 align='right' 兼容 Qt 富文本)
-        html = QString("<div align='right' style='margin-top: 8px; margin-bottom: 8px;'>"
-                       // 第一行：名字加冒号，靠右，灰色小字
-                       "<div style='color: #888888; font-size: 12px; margin-bottom: 4px;'>对方：</div>"
-                       // 第二行：气泡消息内容 (去掉了 Qt 不支持的 flex)
-                       "<div><span style='background-color: #ffffff; color: black; padding: 10px 14px; "
-                       "border-radius: 8px; font-size: 14px; max-width: 75%; text-align: left; border: 1px solid #e0e0e0; display: inline-block;'>"
-                       "%1</span></div></div>").arg(safeText);
+        // 对方发出的消息：整体靠左
+        html = QString(
+                   "<table width='100%' border='0' cellpadding='0' cellspacing='0' style='margin-top: 5px; margin-bottom: 5px;'>"
+                   "<tr><td align='left'>"
+                   // 第一行：名字加冒号，靠左，灰色小字
+                   "<div style='color: #888888; font-size: 12px; margin-bottom: 2px;'>对方：</div>"
+                   // 第二行：气泡消息内容 (内层 table 也要加上 align='left' 才能靠左对齐)
+                   "<table border='0' cellpadding='8' cellspacing='0' align='left'>"
+                   "<tr><td bgcolor='#ffffff' style='border-radius: 6px; border: 1px solid #d0d0d0;'>"
+                   "<span style='color: black; font-size: 14px;'>%1</span>"
+                   "</td></tr>"
+                   "</table>"
+                   "</td></tr>"
+                   "</table>"
+                   ).arg(safeText);
     }
 
     ui->textBrowserChat->append(html);
